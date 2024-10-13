@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Weather</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            color: #4682b4;
+        }
+        p {
+            font-size: 18px;
+            margin: 10px;
+        }
+        #weather-container {
+            border: 2px solid #87cefa;
+            padding: 20px;
+            display: inline-block;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="weather-container">
+        <h1>Current Weather</h1>
+        <p>Precipitation: <span id="precipitation">відсутні</span></p>
+        <p>Day Type: <span id="day_type">сонячний</span></p>
+        <p>Wind Speed: <span id="wind_speed">0.0</span> m/s</p>
+        <p>Temperature: <span id="temperature">20.0</span> °C</p>
+        <p>Humidity: <span id="humidity">50</span> %</p>
+    </div>
+
+    <script>
+        async function fetchWeather() {
+            const response = await fetch('/current_weather');
+            const data = await response.json();
+            document.getElementById('precipitation').textContent = data.precipitation;
+            document.getElementById('day_type').textContent = data.day_type;
+            document.getElementById('wind_speed').textContent = data.wind_speed;
+            document.getElementById('temperature').textContent = data.temperature;
+            document.getElementById('humidity').textContent = data.humidity;
+        }
+
+        setInterval(fetchWeather, 5000); // Оновлюємо дані кожні 5 секунд
+        fetchWeather(); // Початкове завантаження
+    </script>
+</body>
+</html>
+
